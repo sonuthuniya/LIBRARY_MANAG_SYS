@@ -1,27 +1,29 @@
 #include<iostream>
 #include<string.h>
 #include<stdlib.h>
+#include <fstream>
 
 using namespace std;
 
 class library
 {
 private:
-    int book_no ;
+    int bookId ;
     string book_name;
     string Author;
 
 public:
-    library();
+    library(); //constructer 
 
     void Add_book();
+    void saveToFile();
     void update_book();
     void delete_book();
     
 };
 
 library::library() {
-    book_no = 0;
+    bookId = 0;
     book_name = "";
     Author = "";
 }
@@ -31,7 +33,7 @@ library::library() {
 void library::Add_book()
 {
     cout << "Enter book NO : "<<endl;
-    cin >>book_no;
+    cin >>bookId;
 
     cout << "enter book name: "<< endl;
     cin.ignore();
@@ -42,6 +44,18 @@ void library::Add_book()
     getline(cin, Author);
 
 
+}
+
+void library:: saveToFile() {
+     ofstream file("books.txt", ios::app);
+
+     file << bookId << ",        "
+         << book_name<< ",         " ;
+    file << Author  << endl;
+
+     file.close();
+
+     cout << "Book saved successfully!\n";
 }
 // library::update_book(){
 
@@ -58,6 +72,7 @@ int main(){
 
     library ll;
     ll.Add_book();
+    ll.saveToFile();
 
     return 0;
     
